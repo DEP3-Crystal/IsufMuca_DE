@@ -86,39 +86,14 @@ public class Holiday {
 
          //   System.out.println(countries);
 
-            Optional<CountryInfo> min= countries.stream().parallel().min(new Comparator<CountryInfo>() {
-                @Override
-                public int compare(CountryInfo o1, CountryInfo o2) {
-                    return o1.getNumberOfHolidays()-o2.getNumberOfHolidays();
-                }
-            });
+            Optional<CountryInfo> min= countries.stream().parallel().min((o1,o2)->o1.getNumberOfHolidays() - o2.getNumberOfHolidays());
 
-            Optional<CountryInfo> max = countries.stream().parallel().max(new Comparator<CountryInfo>() {
-                @Override
-                public int compare(CountryInfo o1, CountryInfo o2) {
-                    return o1.getNumberOfHolidays() - o2.getNumberOfHolidays();
-                }
-            });
+            Optional<CountryInfo> max = countries.stream().parallel().max((o1,o2)->o1.getNumberOfHolidays() - o2.getNumberOfHolidays());
+
 
             System.out.println("The minimum number of holidays is: "+min.get().getNumberOfHolidays()+" in country of "+min.get().getName());
             System.out.println("The maximum number of holidays is: "+max.get().getNumberOfHolidays()+" in country of "+max.get().getName());
 
-            //add all country name/holiday count pairs
-//            countries.stream().map(country -> {
-//                try {
-//                    List<PublicHolidayV3Dto> countryHoliday = publicHolidayApi.publicHolidayPublicHolidaysV3(year, country.code);
-//                    countryHolidayMap.put(country.name, (int) countryHoliday.stream().count());
-//                } catch (ApiException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                return 0;
-//            });
-//
-//            System.out.println(countryHolidayMap);
-
-
         }
-
-
     }
 }
