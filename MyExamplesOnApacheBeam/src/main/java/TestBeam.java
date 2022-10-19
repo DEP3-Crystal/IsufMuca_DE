@@ -108,11 +108,8 @@ public class TestBeam {
 
         try {
 
-            // Java serialization coder for POJOs :  withCoder(SerializableCoder.of(Entity.class)
+            // Java serialization coder for POJOs :  withCoder(SerializableCoder.of(Entity.class) Where Entity is a programmer defined class
             // Text coder : setCoder(StringUtf8Coder.of())
-
-
-            /*  This  is a valid pipeline  */
 
             PipelineOptions options = PipelineOptionsFactory.create();
             Pipeline pipeline = Pipeline.create(options);
@@ -129,17 +126,18 @@ public class TestBeam {
                     }))
                     .apply(Count.perElement())
                     .apply(ParDo.of(new DoFn<KV<List<String>, Long>, Void>() {
-
                         Logger logger = LoggerFactory.getLogger(TestBeam.class);
 
                         @ProcessElement
                         public void processElement(ProcessContext context) {
-
                             logger.info(context.element().getKey().get(0) + " ==> " + context.element().getValue());
-                            // System.out.println(context.element().getKey().get(0) + " ==> " + context.element().getValue());
-
                         }
                     }));
+
+            pipeline.apply(Create.of(gpus))
+                    .apply(ParDo.of(new DisplayFn()))
+                    .apply(ParDo.of(new FilterRadeonCardsFn()))
+                    .apply(ParDo.of(new DisplayFn()));
 
             pipeline.run();
 
