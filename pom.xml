@@ -12,7 +12,6 @@
         <module>WordCount</module>
         <module>HelloBeam</module>
         <module>MinimalWordCount</module>
-        <module>DebuggingWordCount</module>
         <module>MyExamplesOnApacheBeam</module>
 
     </modules>

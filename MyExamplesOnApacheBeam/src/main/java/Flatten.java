@@ -20,7 +20,7 @@ public class Flatten {
 
         PCollectionList<String> list = PCollectionList.of(p1).and(p2);
 
-        PCollection<String> flattenCollection = list.apply(org.apache.beam.sdk.transforms.Flatten.pCollections());
+        PCollection<String> flattenCollection = list.apply(  org.apache.beam.sdk.transforms.Flatten.pCollections());
 
         flattenCollection.apply(ParDo.of(new DoFn<String, Void>() {
 
